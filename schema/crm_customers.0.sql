@@ -1,0 +1,21 @@
+CREATE TABLE `crm_customers` (
+  `tenant` int(11) NOT NULL DEFAULT '1',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int(11) NOT NULL COMMENT '0: unbekannt 1: Nat. Person 2: Rechtl. Person',
+  `company_name` text NOT NULL,
+  `salutation` text NOT NULL,
+  `person_gender` int(11) NOT NULL,
+  `person_name_prefix` text NOT NULL COMMENT 'name prefix (e.g. titles)',
+  `person_name_given_name` text NOT NULL,
+  `person_name_middle_name` text NOT NULL,
+  `person_name_family_name` text NOT NULL,
+  `person_name_suffix` text NOT NULL COMMENT 'name suffix (e.g. Jr, Sr, I.)',
+  `vat_id` text NOT NULL COMMENT 'ust-id/vat-id o.ä.',
+  `deladdr` int(11) NOT NULL,
+  `billaddr` int(11) NOT NULL,
+  `creator` int(11) NOT NULL,
+  `last_editor` int(11) NOT NULL,
+  `create_time` bigint(20) NOT NULL,
+  `modify_time` bigint(20) NOT NULL,
+  PRIMARY KEY (`tenant`,`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
