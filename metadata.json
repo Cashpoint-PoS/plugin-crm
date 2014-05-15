@@ -1,5 +1,6 @@
 {
   "name":"crm",
+  "desc":"CashPoint CRM",
   "version":"git",
   "deps":[
     
