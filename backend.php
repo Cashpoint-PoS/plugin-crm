@@ -3,3 +3,4 @@ plugins_register_backend($plugin,array("icon"=>"icon-user","sub"=>array("custome
 require("class.Customer.php");
 require("class.Address.php");
 //require("class.Group.php");
+require("class.CRM_MailAddr.php");
