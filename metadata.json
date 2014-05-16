@@ -12,8 +12,8 @@
     "link_crm_customers_crm_groups"
   ],
   "tableRevs":{
-    "crm_addrs":1,
-    "crm_customers":0,
+    "crm_addrs":2,
+    "crm_customers":1,
     "crm_groups":0,
     "link_crm_customers_crm_groups":0
   }
