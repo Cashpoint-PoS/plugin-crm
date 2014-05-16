@@ -44,21 +44,32 @@ class CRM_Customer extends DBObj {
     switch($key) {
       case "_person_name":
         $ret="";
-        if($this->person_name_prefix!=="")
-          $ret.=$this->person_name_prefix." ";
-        if($this->person_name_given_name!=="")
-          $ret.=$this->person_name_given_name." ";
-        if($this->person_name_middle_name!=="")
-          $ret.=$this->person_name_middle_name." ";
-        if($this->person_name_family_name!=="")
-          $ret.=$this->person_name_family_name." ";
-        if($this->person_name_suffix!=="")
-          $ret.=$this->person_name_suffix;
+        if($this->type==2) {
+        	if($this->company_name!="") {
+        		$ret=$this->company_name;
+        	} else {
+            if($this->person_name_given_name!=="")
+              $ret.=$this->person_name_given_name." ";
+            if($this->person_name_family_name!=="")
+              $ret.=$this->person_name_family_name." ";
+        	}
+        } else if($this->type==1) {
+          if($this->person_name_prefix!=="")
+            $ret.=$this->person_name_prefix." ";
+          if($this->person_name_given_name!=="")
+            $ret.=$this->person_name_given_name." ";
+          if($this->person_name_middle_name!=="")
+            $ret.=$this->person_name_middle_name." ";
+          if($this->person_name_family_name!=="")
+            $ret.=$this->person_name_family_name." ";
+          if($this->person_name_suffix!=="")
+            $ret.=$this->person_name_suffix;
+        }
         $ret=trim($ret);
       break;
       case "_type":
         $ret=static::$elements["type"]["data"][$this->type];
-        if($this->type!=2)
+        if($this->type!=1)
           break;
         switch($this->person_gender) {
           case 0: $ret.=" (Unbekannt)"; break;
