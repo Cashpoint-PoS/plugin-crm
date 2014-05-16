@@ -69,7 +69,42 @@ class CRM_Customer extends DBObj {
     }
     return $ret;
   }
-  
+  public function commit() {
+  	if(trim($this->salutation)=="") {
+  		if($this->type==0) //Unbekannt
+  			$this->salutation="Sehr geehrte Damen und Herren";
+  		else if($this->type==1) { //Nat. Person
+  			if($this->person_gender==0) //Unbekannt
+  				$this->salutation="Sehr geehrte Dame, sehr geehrter Herr ";
+  			else if($this->person_gender==1) //Männlich
+  				$this->salutation="Sehr geehrter Herr ";
+  			else if($this->person_gender==2) //Weiblich
+  				$this->salutation="Sehr geehrte Frau ";
+  			
+  			if($this->person_name_prefix!="") 
+  				$this->salutation.=trim($this->person_name_prefix)." ";
+  			if($this->person_name_family_name!="") 
+  				$this->salutation.=trim($this->person_name_family_name)." ";
+  			if($this->person_name_suffix!="") 
+  				$this->salutation.=trim($this->person_name_suffix)." ";
+  		} else if($this->type==2) { //Rechtl. Person
+  			if($this->person_gender==0) //Unbekannt
+  				$this->salutation="Sehr geehrte Damen und Herren ";
+  			else if($this->person_gender==1) //Männlich
+  				$this->salutation="Sehr geehrter Herr ";
+  			else if($this->person_gender==2) //Weiblich
+  				$this->salutation="Sehr geehrte Frau ";
+  			
+  			if($this->person_name_prefix!="") 
+  				$this->salutation.=trim($this->person_name_prefix)." ";
+  			if($this->person_name_family_name!="") 
+  				$this->salutation.=trim($this->person_name_family_name)." ";
+  			if($this->person_name_suffix!="") 
+  				$this->salutation.=trim($this->person_name_suffix)." ";
+  		}
+  	}
+  	parent::commit();
+  }
   public function toString() {
     if($this->type==1)
       return $this->company_name;
