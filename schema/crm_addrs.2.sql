@@ -1,0 +1,20 @@
+CREATE TABLE `crm_addrs` (
+  `tenant` int(11) NOT NULL DEFAULT '1',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `crm_customers_id` int(11) NOT NULL DEFAULT '0',
+  `prefix_line` text NOT NULL,
+  `name` text NOT NULL,
+  `line2` text NOT NULL,
+  `line3` text NOT NULL,
+  `street` text NOT NULL,
+  `house_nr` text NOT NULL,
+  `postal_code` text NOT NULL,
+  `city` text NOT NULL,
+  `country` text NOT NULL,
+  `formatted` text NOT NULL,
+  `last_editor` int(11) NOT NULL DEFAULT '0',
+  `creator` int(11) NOT NULL DEFAULT '0',
+  `modify_time` bigint(20) NOT NULL DEFAULT '0',
+  `create_time` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`tenant`,`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
