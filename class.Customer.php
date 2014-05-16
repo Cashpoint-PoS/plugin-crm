@@ -5,7 +5,7 @@ class CRM_Customer extends DBObj {
   public static $sub="customers";
   
   public static $elements=array(
-    "type"=>array("title"=>"Typ","mode"=>"select","data"=>array("Unbekannt","Rechtl. Person","Nat. Person"),"dbkey"=>"type"),
+    "type"=>array("title"=>"Typ","mode"=>"select","data"=>array("Unbekannt","Nat. Person","Rechtl. Person"),"dbkey"=>"type"),
     "person_gender"=>array("title"=>"Geschlecht","mode"=>"select","data"=>array("Unbekannt","Männlich","Weiblich"),"dbkey"=>"person_gender"),
     "salutation"=>array("title"=>"Volle Anrede im Brief","mode"=>"string","dbkey"=>"salutation"),
     "company_name"=>array("title"=>"Firmenname","mode"=>"string","dbkey"=>"company_name"),
