@@ -4,3 +4,5 @@ require("class.Customer.php");
 require("class.Address.php");
 //require("class.Group.php");
 require("class.CRM_MailAddr.php");
+
+plugins_register_target($plugin,"app/index.php","CRM");
