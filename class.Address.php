@@ -8,8 +8,9 @@ class CRM_Address extends DBObj {
   
   public static $elements=array(
   //""=>array("title"=>"","mode"=>"string","dbkey"=>""),
-    "customer_id"=>array("title"=>"Kunde","mode"=>"string","dbkey"=>"crm_customers_id","data"=>"number"),
-	"prefix_line"=>array("title"=>"Anrede","mode"=>"string","dbkey"=>"prefix_line"),
+  "crm_customers_id"=>array("title"=>"Kunde","mode"=>"string","dbkey"=>"crm_customers_id"),
+   "type"=>array("title"=>"Typ","mode"=>"select","data"=>array("Unbekannt","Arbeit","Privat"),"dbkey"=>"type"),
+	"prefix_line"=>array("title"=>"ZVZ1 (Versandkennzeichen)","mode"=>"string","dbkey"=>"prefix_line"),
 	"name"=>array("title"=>"Namenszeile","mode"=>"string","dbkey"=>"name"),
 	"line2"=>array("title"=>"Adresszeile 2","mode"=>"string","dbkey"=>"line2"),
 	"line3"=>array("title"=>"Adresszeile 3","mode"=>"string","dbkey"=>"line3"),
@@ -26,13 +27,13 @@ class CRM_Address extends DBObj {
 //    "formatted","city","country"
   );
   public static $list_elements=array(
-    "customer_name","name","city","country"
+    "customer_name","name","city","country","type"
   );
   public static $detail_elements=array(
-    "customer_name","prefix_line","name","line2","line3","street","house_nr","postal_code","city","country","formatted"
+    "customer_name","prefix_line","name","line2","line3","street","house_nr","postal_code","city","country","formatted","type"
   );
   public static $edit_elements=array(
-    "prefix_line","name","line2","line3","street","house_nr","postal_code","city","country","formatted"
+    "type","crm_customers_id","prefix_line","name","line2","line3","street","house_nr","postal_code","city","country","formatted"
   );
   public static $links=array(
 //    "User"=>array("title"=>"Mitglieder","table"=>"link_users_groups"),
@@ -72,9 +73,11 @@ class CRM_Address extends DBObj {
       if(trim($this->house_nr)!="")
         $this->formatted.=$this->house_nr."\n";
       if(trim($this->postal_code)!="")
-        $this->formatted.=$this->postal_code."\n";
+        $this->formatted.=$this->postal_code;
       if(trim($this->city)!="")
-        $this->formatted.=$this->city."\n";
+        $this->formatted.=" ".$this->city."\n";
+      else
+      	$this->formatted.="\n";
       if(trim($this->country)!="")
         $this->formatted.=$this->country."\n";
     }

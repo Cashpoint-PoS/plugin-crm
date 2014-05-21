@@ -24,9 +24,14 @@ class CRM_Group extends DBObj {
   public static $links=array(
     "CRM_Customer"=>array("title"=>"Mitglieder","table"=>"link_crm_customers_crm_groups"),
   );
-
+	public function toString() {
+		return $this->name;
+	}
 }
 plugins_register_backend_handler($plugin,"groups","list",array("CRM_Group","listView"));
 plugins_register_backend_handler($plugin,"groups","edit",array("CRM_Group","editView"));
 plugins_register_backend_handler($plugin,"groups","view",array("CRM_Group","detailView"));
 plugins_register_backend_handler($plugin,"groups","submit",array("CRM_Group","processSubmit"));
+plugins_register_backend_handler($plugin,"groups","link",array("CRM_Group","linkView"));
+plugins_register_backend_handler($plugin,"groups","addLink",array("CRM_Group","processAddLink"));
+plugins_register_backend_handler($plugin,"groups","removeLink",array("CRM_Group","processRemoveLink"));

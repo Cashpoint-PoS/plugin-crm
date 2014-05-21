@@ -19,24 +19,27 @@ class CRM_Customer extends DBObj {
     "_type"=>array("title"=>"Typ","mode"=>"process"),
     "deladdr"=>array("title"=>"Standard-Lieferadresse","mode"=>"one2many","dbkey"=>"deladdr","data"=>"CRM_Address"),
     "billaddr"=>array("title"=>"Standard-Rechnungsadresse","mode"=>"one2many","dbkey"=>"billaddr","data"=>"CRM_Address"),
+    "_primarymail"=>array("title"=>"Standard-Mailadresse","mode"=>"process"),
+    "remarks"=>array("title"=>"Bemerkungen","mode"=>"string","dbkey"=>"remarks"),
   );
   
   public static $link_elements=array(
   );
   public static $list_elements=array(
-    "_type","company_name","_person_name","vat_id"
+    "_type","company_name","_person_name","vat_id","_primarymail",
   );
   public static $detail_elements=array(
     "_type","company_name","salutation","person_name_prefix","person_name_given_name","person_name_middle_name","person_name_family_name","person_name_suffix","vat_id","deladdr","billaddr"
   );
   public static $edit_elements=array(
-    "type","company_name","salutation","person_gender","person_name_prefix","person_name_given_name","person_name_middle_name","person_name_family_name","person_name_suffix","vat_id","deladdr","billaddr"
+    "type","company_name","salutation","person_gender","person_name_prefix","person_name_given_name","person_name_middle_name","person_name_family_name","person_name_suffix","vat_id","deladdr","billaddr","remarks"
   );
   public static $links=array(
-//    "User"=>array("title"=>"Mitglieder","table"=>"link_users_groups"),
+    "CRM_Group"=>array("title"=>"Gruppen","table"=>"link_crm_customers_crm_groups"),
   );
   public static $one2many=array(
     "CRM_Address"=>array("title"=>"Adressen"),
+    "CRM_MailAddr"=>array("title"=>"eMail-Adressen"),
   );
   
   public function processProperty($key) {
@@ -77,6 +80,19 @@ class CRM_Customer extends DBObj {
           case 2: $ret.=" (weiblich)"; break;
         }
       break;
+      case "_primarymail":
+      	$mails=CRM_MailAddr::getByOwner($this);
+      	if(sizeof($mails)==0)
+      		return "";
+      	if(sizeof($mails)==1)
+      		return $mails[0]->addr;
+      	$primary=$mails[0];
+      	foreach($mails as $mail) {
+      		if($mail->is_primary==1)
+      			$primary=$mail;
+      	}
+      	return $primary->addr;
+      break;
     }
     return $ret;
   }
@@ -113,6 +129,7 @@ class CRM_Customer extends DBObj {
   			if($this->person_name_suffix!="") 
   				$this->salutation.=trim($this->person_name_suffix)." ";
   		}
+  		$this->salutation=trim($this->salutation);
   	}
   	parent::commit();
   }
